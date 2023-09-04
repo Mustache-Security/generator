@@ -1,8 +1,29 @@
 const fs = require("fs")
 const readline = require("readline-sync")
+const people = require("gerador-pessoas")
+
+const options = ["CPF", "NOME_COMPLETO"]
+
+const optionsOutput = {
+  0: "cpf's",
+  1: "nomes completos",
+}
+
+const choice = readline.keyInSelect(
+  options,
+  "Escolha uma opção para gerar sua lista: "
+)
+const choiceString = choice.toString()
+
+if (choice === -1) {
+  console.log("Operação cancelada")
+  return
+}
 
 const fileName = readline.question("Nome do arquivo de saída: ")
-const amount = readline.question("Quantos CPFs ficticios deseja gerar: ")
+const amount = readline.question(
+  `Quantos ${optionsOutput[choiceString]} ficticios deseja gerar: `
+)
 
 const digit = (numberOne, numberTwo, numberThree, numberFour) => {
   const numbers = numberOne
@@ -42,7 +63,17 @@ const genCpf = () => {
 }
 
 for (let i = 0; i < Number(amount); i++) {
-  const cpf = genCpf() + "\n"
-  fs.appendFileSync(`${fileName}.txt`, cpf, "utf-8")
-  console.log(cpf)
+  if (choice === 0) {
+    const cpf = genCpf() + "\n"
+    fs.appendFileSync(`${fileName}.txt`, cpf, "utf-8")
+    console.log(cpf)
+  }
+  if (choice === 1) {
+    people.setCampoNome("nome")
+    people.setCampoCpf()
+    people.gerarJson(1)
+    const name = people._registros[0].nome + "\n"
+    fs.appendFileSync(`${fileName}.txt`, name, "utf-8")
+    console.log(name)
+  }
 }

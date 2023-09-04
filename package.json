@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "gerador": "^0.1.0",
+    "gerador-pessoas": "^1.0.5",
     "readline-sync": "^1.4.10"
   }
 }
