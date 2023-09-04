@@ -1,5 +1,5 @@
 # generator
-Aplicação node para gerar listas para testes
+Aplicação JS para gerar listas para testes
 
 ## Instalação
 
